@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Product Roadmap — Contact Center Diagnostic Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: #252a38;
+    --accent: #4f8cff;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent4: #fb923c;
+    --text: #e8eaf0;
+    --muted: #8b90a0;
+    --h1: #f0f2f8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 32px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 48px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(79,140,255,0.1);
+    border: 1px solid rgba(79,140,255,0.25);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+
+  .badge::before { content: '◆'; font-size: 8px; }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--h1);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 3px;
+  }
+
+  /* HORIZONS BAR */
+  .horizons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 64px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .horizon {
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .horizon:nth-child(1) { background: rgba(79,140,255,0.12); border: 1px solid rgba(79,140,255,0.2); }
+  .horizon:nth-child(2) { background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2); }
+  .horizon:nth-child(3) { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.2); }
+
+  .horizon-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .horizon:nth-child(1) .horizon-label { color: var(--accent); }
+  .horizon:nth-child(2) .horizon-label { color: var(--accent2); }
+  .horizon:nth-child(3) .horizon-label { color: var(--accent3); }
+
+  .horizon-title { font-weight: 600; font-size: 14px; color: var(--h1); margin-bottom: 4px; }
+  .horizon-time { font-size: 12px; color: var(--muted); }
+
+  /* PHASES */
+  .phase {
+    margin-bottom: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase:nth-child(1) { animation-delay: 0.1s; }
+  .phase:nth-child(2) { animation-delay: 0.2s; }
+  .phase:nth-child(3) { animation-delay: 0.3s; }
+  .phase:nth-child(4) { animation-delay: 0.4s; }
+
+  .phase-header {
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .p1 .phase-num { background: rgba(79,140,255,0.15); color: var(--accent); border: 1px solid rgba(79,140,255,0.3); }
+  .p2 .phase-num { background: rgba(167,139,250,0.15); color: var(--accent2); border: 1px solid rgba(167,139,250,0.3); }
+  .p3 .phase-num { background: rgba(52,211,153,0.15); color: var(--accent3); border: 1px solid rgba(52,211,153,0.3); }
+  .p4 .phase-num { background: rgba(251,146,60,0.15); color: var(--accent4); border: 1px solid rgba(251,146,60,0.3); }
+
+  .phase-meta { flex: 1; }
+
+  .phase-timeframe {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .p1 .phase-timeframe { color: var(--accent); }
+  .p2 .phase-timeframe { color: var(--accent2); }
+  .p3 .phase-timeframe { color: var(--accent3); }
+  .p4 .phase-timeframe { color: var(--accent4); }
+
+  .phase-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--h1);
+    margin-bottom: 6px;
+  }
+
+  .phase-goal {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .phase-body {
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 640px) {
+    .phase-body { grid-template-columns: 1fr; }
+    .horizons { grid-template-columns: 1fr; }
+  }
+
+  .phase-section h3 {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .checklist { list-style: none; }
+
+  .checklist li {
+    display: flex;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #c4c8d8;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .checklist li::before {
+    content: '○';
+    color: var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 12px;
+  }
+
+  .risk-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .risk-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fb923c;
+    margin-bottom: 3px;
+  }
+
+  .risk-desc { color: var(--muted); font-size: 12.5px; }
+
+  /* METRICS */
+  .metrics-section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--h1);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .metric-card.blue::before { background: var(--accent); }
+  .metric-card.purple::before { background: var(--accent2); }
+  .metric-card.green::before { background: var(--accent3); }
+  .metric-card.orange::before { background: var(--accent4); }
+
+  .metric-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--h1);
+    margin-bottom: 4px;
+  }
+
+  .metric-card.blue .metric-value { color: var(--accent); }
+  .metric-card.purple .metric-value { color: var(--accent2); }
+  .metric-card.green .metric-value { color: var(--accent3); }
+  .metric-card.orange .metric-value { color: var(--accent4); }
+
+  .metric-label { font-size: 12px; color: var(--muted); }
+
+  /* COMPARISON TABLE */
+  .comparison {
+    margin-bottom: 48px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  thead th {
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(37,42,56,0.5);
+    color: #c4c8d8;
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  td:first-child { color: var(--muted); font-size: 13px; }
+
+  /* BACKLOG */
+  .backlog {
+    margin-bottom: 48px;
+  }
+
+  .priority-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(37,42,56,0.5);
+  }
+
+  .priority-row:last-child { border-bottom: none; }
+
+  .priority-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .priority-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .priority-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .priority-label { font-size: 13.5px; color: #c4c8d8; min-width: 200px; }
+  .priority-sub { font-size: 12px; color: var(--muted); flex: 1; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 16px;
+  }
+
+  .footer-text { font-size: 12px; color: var(--muted); }
+  .footer-text strong { color: var(--text); }
+
+  .footer-links { display: flex; gap: 16px; }
+
+  .footer-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(79,140,255,0.3);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover { color: #a5c4ff; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">Portfolio · AI Product Management</div>
+    <h1>AI Product Roadmap<br><em>Contact Center Diagnostic Platform</em></h1>
+    <p class="subtitle">
+      End-to-end delivery of an AI-powered diagnostics platform for PwC AppDev — covering GPT-based summarization, benchmark intelligence, and automated ROI calculation for large enterprise clients.
+    </p>
+    <div class="tags">
+      <span class="tag">Senior PM · AI Products</span>
+      <span class="tag">PwC AppDev</span>
+      <span class="tag">GPT-4 API</span>
+      <span class="tag">Agile / Scrum</span>
+      <span class="tag">B2B Enterprise</span>
+      <span class="tag">Cross-Atlantic Team</span>
+    </div>
+  </div>
+
+  <!-- HORIZONS -->
+  <div class="horizons">
+    <div class="horizon">
+      <div class="horizon-label">H1 · Foundation</div>
+      <div class="horizon-title">MVP & Pilot</div>
+      <div class="horizon-time">0 – 3 months</div>
+    </div>
+    <div class="horizon">
+      <div class="horizon-label">H2 · Expansion</div>
+      <div class="horizon-title">Scale & Feedback</div>
+      <div class="horizon-time">3 – 9 months</div>
+    </div>
+    <div class="horizon">
+      <div class="horizon-label">H3 · Optimization</div>
+      <div class="horizon-title">Enterprise Rollout</div>
+      <div class="horizon-time">9 – 18 months</div>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div class="phase p1">
+    <div class="phase-header">
+      <div class="phase-num">01</div>
+      <div class="phase-meta">
+        <div class="phase-timeframe">Weeks 1–4 · Discovery & Foundation</div>
+        <div class="phase-title">Define Scope & Validate Data Readiness</div>
+        <div class="phase-goal">Goal: Align stakeholders, map data sources, establish AI governance framework</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-section">
+        <h3>Key Deliverables</h3>
+        <ul class="checklist">
+          <li>Stakeholder alignment — define "good AI output" criteria</li>
+          <li>Data source mapping: XLS ingestion, diagnostic outputs, historical benchmarks</li>
+          <li>Human oversight framework for consultant review/override</li>
+          <li>RACI across engineering, AI/ML, UX, client teams</li>
+          <li>Sprint 0: environment setup, model API integration, CI/CD</li>
+        </ul>
+      </div>
+      <div class="phase-section">
+        <h3>AI-Specific Risks</h3>
+        <div class="risk-item">
+          <div class="risk-label">Hallucination Risk</div>
+          <div class="risk-desc">GPT summarizations may introduce inaccuracies in consultant-facing narratives — define accuracy threshold before launch</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label">Data Quality Risk</div>
+          <div class="risk-desc">Inconsistent XLS schemas from client uploads will degrade benchmark accuracy</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label">Scope Creep</div>
+          <div class="risk-desc">AI feature requests arrive ambiguously — weekly backlog refinement is mandatory</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase p2">
+    <div class="phase-header">
+      <div class="phase-num">02</div>
+      <div class="phase-meta">
+        <div class="phase-timeframe">Months 1–3 · Pilot & Iteration</div>
+        <div class="phase-title">Deploy, Capture Feedback, Iterate Fast</div>
+        <div class="phase-goal">Goal: Ship GPT summarization MVP to pilot clients, measure accuracy, close feedback loop</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-section">
+        <h3>Sprint Cadence</h3>
+        <ul class="checklist">
+          <li><strong>S1–S2:</strong> Data pipeline + XLS ingestion hardening</li>
+          <li><strong>S3–S4:</strong> GPT summarization MVP + UX integration</li>
+          <li><strong>S5–S6:</strong> Benchmark intelligence v1 (financial services vertical)</li>
+          <li><strong>S7–S8:</strong> Feedback capture, regression testing, pilot launch</li>
+          <li><strong>Quarterly:</strong> Onsite workshop in Prague with core stakeholders</li>
+        </ul>
+      </div>
+      <div class="phase-section">
+        <h3>Key Deliverables</h3>
+        <ul class="checklist">
+          <li>Consultant feedback loop — thumbs up/down + free-text annotation UI</li>
+          <li>Model performance dashboard: accuracy, hallucination rate, latency</li>
+          <li>Prompt version registry for regression tracking</li>
+          <li>Model drift monitoring — GPT updates changing behavior without code changes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase p3">
+    <div class="phase-header">
+      <div class="phase-num">03</div>
+      <div class="phase-meta">
+        <div class="phase-timeframe">Months 3–9 · Expansion</div>
+        <div class="phase-title">Scale Validated Features & Add ROI Automation</div>
+        <div class="phase-goal">Goal: Multi-vertical expansion, ROI automation, compliance hardening for enterprise accounts</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-section">
+        <h3>Key Deliverables</h3>
+        <ul class="checklist">
+          <li>ROI calculation automation — AI-generated baseline reports within platform</li>
+          <li>Multi-vertical benchmark expansion: telecoms, retail, healthcare</li>
+          <li>A/B testing framework for prompt variants</li>
+          <li>Audit trail & compliance hardening for PwC enterprise accounts</li>
+          <li>Self-service reporting — consultants generate reports without PM intervention</li>
+        </ul>
+      </div>
+      <div class="phase-section">
+        <h3>Backlog Priority Stack</h3>
+        <div style="padding: 4px 0;">
+          <div class="priority-row">
+            <div class="priority-num" style="background:rgba(79,140,255,0.15);color:var(--accent);">1</div>
+            <div class="priority-label">Core AI Features</div>
+            <div class="priority-bar"><div class="priority-fill" style="width:95%;background:var(--accent);"></div></div>
+          </div>
+          <div class="priority-row">
+            <div class="priority-num" style="background:rgba(167,139,250,0.15);color:var(--accent2);">2</div>
+            <div class="priority-label">Data Pipeline Quality</div>
+            <div class="priority-bar"><div class="priority-fill" style="width:78%;background:var(--accent2);"></div></div>
+          </div>
+          <div class="priority-row">
+            <div class="priority-num" style="background:rgba(52,211,153,0.15);color:var(--accent3);">3</div>
+            <div class="priority-label">Consultant UX</div>
+            <div class="priority-bar"><div class="priority-fill" style="width:62%;background:var(--accent3);"></div></div>
+          </div>
+          <div class="priority-row">
+            <div class="priority-num" style="background:rgba(251,146,60,0.15);color:var(--accent4);">4</div>
+            <div class="priority-label">Compliance & Risk</div>
+            <div class="priority-bar"><div class="priority-fill" style="width:48%;background:var(--accent4);"></div></div>
+          </div>
+          <div class="priority-row">
+            <div class="priority-num" style="background:rgba(139,144,160,0.15);color:var(--muted);">5</div>
+            <div class="priority-label">Technical Debt</div>
+            <div class="priority-bar"><div class="priority-fill" style="width:30%;background:var(--muted);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase p4">
+    <div class="phase-header">
+      <div class="phase-num">04</div>
+      <div class="phase-meta">
+        <div class="phase-timeframe">Months 9–18 · Optimization & Scale</div>
+        <div class="phase-title">Enterprise Rollout & Next Horizon Scoping</div>
+        <div class="phase-goal">Goal: Full large-account rollout, measure business outcomes, define next AI investments</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-section">
+        <h3>Key Deliverables</h3>
+        <ul class="checklist">
+          <li>Large account onboarding — complex, high-stakes environments</li>
+          <li>Business outcome tracking: turnaround time ↓, consultant hours ↓, ROI accuracy ↑</li>
+          <li>Model fine-tuning cycles based on 6+ months annotated feedback</li>
+          <li>Knowledge base: prompt libraries, lessons learned, delivery playbooks</li>
+        </ul>
+      </div>
+      <div class="phase-section">
+        <h3>Next-Horizon AI Scoping</h3>
+        <ul class="checklist">
+          <li>Predictive diagnostics — proactive issue identification before client reports</li>
+          <li>Voice analytics integration — call center audio → automated diagnostic input</li>
+          <li>Real-time benchmark updates — live KPI comparison vs. industry data streams</li>
+          <li>Multi-language support — expand beyond English for EU client base</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics-section">
+    <h2 class="section-title">Key Performance Metrics</h2>
+    <div class="metrics-grid">
+      <div class="metric-card blue">
+        <div class="metric-value">≥ 85%</div>
+        <div class="metric-label">Consultant approval rate for AI summarizations</div>
+      </div>
+      <div class="metric-card purple">
+        <div class="metric-value">&lt; 5%</div>
+        <div class="metric-label">Hallucination rate — flagged AI outputs</div>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-value">&lt; 4s</div>
+        <div class="metric-label">Response latency per AI generation</div>
+      </div>
+      <div class="metric-card orange">
+        <div class="metric-value">3d → 4h</div>
+        <div class="metric-label">Report turnaround time improvement</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="comparison">
+    <h2 class="section-title">AI Roadmap vs. Traditional Roadmap</h2>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Traditional PM Roadmap</th>
+            <th>AI Product Roadmap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Feature specs</td>
+            <td>Fixed and deterministic</td>
+            <td>Probabilistic — experimentation buffers built in</td>
+          </tr>
+          <tr>
+            <td>Releases triggered by</td>
+            <td>Code changes</td>
+            <td>Code changes + model updates (no code change needed)</td>
+          </tr>
+          <tr>
+            <td>QA definition</td>
+            <td>Does it work?</td>
+            <td>Does it work accurately and safely?</td>
+          </tr>
+          <tr>
+            <td>North star metric</td>
+            <td>Velocity</td>
+            <td>Accuracy + velocity, co-equal</td>
+          </tr>
+          <tr>
+            <td>User feedback goes to</td>
+            <td>Backlog</td>
+            <td>Prompt tuning + backlog</td>
+          </tr>
+          <tr>
+            <td>Launch means</td>
+            <td>Done</td>
+            <td>Beginning of feedback loop</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-text">
+      <strong>AI Product Roadmap</strong> · Senior PM Portfolio Artifact<br>
+      PwC AppDev · Contact Center Diagnostic Platform · 2024–2025
+    </div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">LinkedIn</a>
+      <a class="footer-link" href="#">GitHub</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
