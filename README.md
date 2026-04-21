@@ -141,8 +141,8 @@ Priority 5 │ Technical Debt          (model drift monitoring, fallback mechani
 
 📁 Stakeholder Communication
 ├── Weekly async status update (Confluence)
-├── Monthly progress review with PwC stakeholders
-└── Quarterly onsite workshop (Prague)
+├── Monthly progress review with stakeholders
+└── Quarterly onsite or online workshop
 ```
 
 ---
