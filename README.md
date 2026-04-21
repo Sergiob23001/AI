@@ -1,4 +1,4 @@
-# 🤖 AI Product Roadmap — Contact Center Diagnostic Platform
+# 🤖 AI Product Roadmap (Generic roadmap to reflect phases and durations)
 
 ---
 
