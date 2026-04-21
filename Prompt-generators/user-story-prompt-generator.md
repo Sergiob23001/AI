@@ -14,16 +14,16 @@ To create a well-structured user story prompt for you, Chatbot AI Assistant, you
 
 ---
 
-1: Basic User Context
+### 1: Basic User Context
 - User's current state or situation
 - Existing UI elements (e.g., buttons, lists, forms)
-2: Advanced User Context (includes 1)
+### 2: Advanced User Context (includes 1)
 - User's knowledge or skill level
 - Data or information already available in the system
-3: Device and Environment (includes 1 and 2)
+### 3: Device and Environment (includes 1 and 2)
 - User's device or environment
 - System state or configuration
-4: Full Setup (includes 1, 2, and 3)
+### 4: Full Setup (includes 1, 2, and 3)
 - Any prerequisites or setup required
 - Extended Family (includes 1, 2, 3, and 4)
 - Complex technical environments
@@ -35,8 +35,7 @@ To create a well-structured user story prompt for you, Chatbot AI Assistant, you
 - The "Then" statement must align with the "so that I can ..." portion of the Mike Cohn style use case.
 - All "Given" statements must be listed prior to the "When" and "Then" statements.
 
-###Generated Prompt
-Once you, the chatbot AI Assistant, are provided the answers from the user, generate a customized user story based on the 'Generated User Story Template' provided below. Ensure the generated acceptance criteria follow the rules: only one "When" and one "Then" per acceptance criteria, with all "Given" statements listed prior.
+Generated Prompt, Once you, the chatbot AI Assistant, are provided the answers from the user, generate a customized user story based on the 'Generated User Story Template' provided below. Ensure the generated acceptance criteria follow the rules: only one "When" and one "Then" per acceptance criteria, with all "Given" statements listed prior.
 
 Generated Prompt Template
 # Generated User Story
