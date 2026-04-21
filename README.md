@@ -168,17 +168,17 @@ Priority 5 │ Technical Debt          (model drift monitoring, fallback mechani
 
 ## 👤 About This Role
 
-**Senior Project Manager — AI Products**
-- 5+ years PM experience with AI/ML product delivery
+**Senior Project Manager**
+- 5+ years PM experience with some AI/ML product delivery experience
 - Track record managing large enterprise client accounts
 - Skilled in defining scope under ambiguity, backlog ownership, and cross-functional stakeholder management
 - Working language: English (advanced)
-- Setup: Remote-first, occasional onsite in Prague (1× per quarter)
+
 
 ---
 
-*This roadmap is a portfolio artifact demonstrating AI product management methodology for a Senior PM role at PwC AppDev. It is structured around real-world delivery principles for enterprise AI platforms.*
+*This roadmap is a portfolio artifact demonstrating AI product management methodology for a Senior PM role. It is structured around real-world delivery principles for enterprise AI platforms.*
 
 ---
 
-**📬 Open to connecting?** Find me on [LinkedIn](#) · [GitHub](#)
+**📬 Open to connecting?** Find me on [https://www.linkedin.com/in/sergiobotzman/]
