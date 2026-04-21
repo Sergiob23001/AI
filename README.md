@@ -77,7 +77,7 @@ Foundation & MVP   →  Expansion & Feedback  →  Optimization & Scale
 - [ ] ROI calculation automation — AI-generated baseline reports within the platform
 - [ ] Multi-vertical benchmark expansion (telecoms, retail, healthcare)
 - [ ] Prompt/model versioning strategy — A/B testing framework for prompt variants
-- [ ] Audit trail & compliance hardening for large PwC enterprise accounts
+- [ ] Audit trail & compliance hardening for large enterprise accounts
 - [ ] Self-service reporting — consultants generate reports without PM intervention
 
 ### Backlog Priority Stack
