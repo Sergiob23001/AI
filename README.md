@@ -1,16 +1,13 @@
 # 🤖 AI Product Roadmap — Contact Center Diagnostic Platform
-### Senior Project Manager · PwC APPDEV · B2B Freelance
-
-> **AI-Assisted Summarization · AI-Augmented Diagnostics · AI-Driven Engagement Efficiency**
 
 ---
 
 ## 📌 Project Overview
 
-Managing end-to-end delivery of an AI-powered Contact Center Diagnostic platform for PwC AppDev — a cross-Atlantic team of 200+ IT specialists building solutions for large enterprise clients.
+This has been created from a Project Management perspective for AI Projects considering end-to-end delivery 
 
 **Core AI features being delivered:**
-- **GPT-Based Summarization** — auto-draft narratives from diagnostic results and uploaded XLS data for internal consultants
+- **GPT-Based Summarization** — auto-draft narratives from diagnostic results and uploaded XLS data for team members
 - **Benchmark Intelligence** — AI comparison of client KPIs vs. industry benchmarks with performance gap analysis
 - **ROI Automation** — AI-powered baseline report and ROI calculation generation within the web diagnostics platform
 
